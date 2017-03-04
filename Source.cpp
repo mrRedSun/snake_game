@@ -22,6 +22,13 @@ int fruit_pos_X, fruit_pos_Y;
 
 void Setup()
 {
+	HANDLE out = GetStdHandle(STD_OUTPUT_HANDLE);
+	CONSOLE_CURSOR_INFO cursorInfo;
+
+	GetConsoleCursorInfo(out, &cursorInfo);
+	cursorInfo.bVisible = false; // set the cursor visibility 
+	SetConsoleCursorInfo(out, &cursorInfo);
+
 	srand(time(NULL));
 	game_Over = false;
 	dir = STOP;
@@ -54,19 +61,19 @@ void Input()
 	if (_kbhit())
 		switch (_getch())
 		{
-		case 'w': case 'W': 
+		case 'w': case (char) 'ðH':
 			dir = UP;
 			break;
-		case 'a': case 'A':
+		case 'a': case (char) 'pK':
 			dir = LEFT;
 			break;
-		case 's': case 'S':
+		case 's': case (char) 'pP':
 			dir = DOWN;
 			break;
-		case 'd': case 'D':
+		case 'd': case (char) 'pM':
 			dir = RIGHT;
 			break;
-		case 'x': case 'X':
+		case 'x': 
 			game_Over = true;
 			break;
 		}
@@ -179,7 +186,7 @@ int main()
 		Sleep(20);
 	}
 
-	system("cls");
+	system("cls"); 
 	std::cout << "GAME OVER\n" << "Your score is: " << score << std::endl;
 
 	system("pause");
